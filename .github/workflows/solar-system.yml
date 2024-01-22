@@ -95,14 +95,14 @@ jobs:
         - name: Checkout repo
           uses: actions/checkout@v4
         - name: Install kubectl
-          uses: azure/setup-kubectl
+          uses: azure/setup-kubectl@v3
           with:
             version: v1.26.0
         - name: Set kube context
-          uses: azure/k8s-set-context
+          uses: azure/k8s-set-context@v3
           with:
             method: kubeconfig
-            kubeconfig: ${{ secrets.KUBECONFIG }}
+            kubeconfig: '${{ secrets.KUBECONFIG }}'
         - name: Run kubectl command
           run: kubectl version --short -o yaml
   
