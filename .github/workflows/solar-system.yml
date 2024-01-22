@@ -67,8 +67,8 @@ jobs:
         permissions: #added
           packages: write #added
         runs-on: ubuntu-latest
-        needs:
-          - code-coverage
+        # needs:
+        #  - code-coverage
         #   - unit-testing
         steps:
         - name: Checkout repository
@@ -88,7 +88,7 @@ jobs:
 
     dev-deploy:
         runs-on: ubuntu-latest
-        needs: docker
+        # needs: docker
         environment: 
           name: development
         steps:
@@ -106,8 +106,8 @@ jobs:
         - name: Run kubectl command
           run: kubectl version --short -o yaml
         - name: Fetch NGINX Ingress controller
-          run: >
-             echo "INGRESS_IP=$(kubectl -n ingress-nginx get services ingress-nginx-controller -o jsonpath='{.status.loadBalancer.ingress[0].ip}')" >> $GITHUB_ENV
+          run: |
+              echo "INGRESS_IP=$(kubectl -n ingress-nginx get services ingress-nginx-controller -o jsonpath="{.status.loadBalancer.ingress[0].ip}")" >> $GITHUB_ENV
         - name: Replace tokens in manifest files
           uses: cschleiden/replace-tokens@v1
           with:
